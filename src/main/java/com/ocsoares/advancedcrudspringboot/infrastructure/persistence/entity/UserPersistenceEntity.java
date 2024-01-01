@@ -10,7 +10,7 @@ import java.util.UUID;
 
 // Entidade de Usuário que VAI ser Salva no BANCO de DADOS, por isso tem o "id", por exemplo!!!
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @RequiredArgsConstructor
 @Data
 public class UserPersistenceEntity implements Serializable {
