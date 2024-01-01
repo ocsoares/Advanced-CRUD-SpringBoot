@@ -21,7 +21,7 @@ public class UserRepositoryGateway implements UserGateway {
 
     @Override
     public UserDomainEntity createUser(UserDomainEntity userDomainEntity) {
-        UserPersistenceEntity userPersistenceEntity = this.userPersistenceEntityMapper.toPersistenceEntity(
+        UserPersistenceEntity userPersistenceEntity = this.userPersistenceEntityMapper.toPersistence(
                 userDomainEntity);
 
         // PRECISA CONVERTER o Usuário de DOMÍNIO (userDomainEntity) para o Usuário do BANCO de DADOS, que é
@@ -30,6 +30,6 @@ public class UserRepositoryGateway implements UserGateway {
 
         // Como o Usuário SALVO no Banco de Dados é do tipo "UserPersistenceEntity", mas o RETORNO desse Método
         // é do Tipo "UserDomainEntity", PRECISA CONVERTER o "savedUser" (Persistence) para DOMAIN!!!
-        return this.userPersistenceEntityMapper.toDomainEntity(savedUser);
+        return this.userPersistenceEntityMapper.toDomain(savedUser);
     }
 }

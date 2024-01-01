@@ -4,12 +4,12 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 
 public class UserPersistenceEntityMapper {
-    public UserPersistenceEntity toPersistenceEntity(UserDomainEntity userDomainEntity) {
+    public UserPersistenceEntity toPersistence(UserDomainEntity userDomainEntity) {
         return new UserPersistenceEntity(
                 userDomainEntity.name(), userDomainEntity.email(), userDomainEntity.password());
     }
 
-    public UserDomainEntity toDomainEntity(UserPersistenceEntity userPersistenceEntity) {
+    public UserDomainEntity toDomain(UserPersistenceEntity userPersistenceEntity) {
         return new UserDomainEntity(userPersistenceEntity.getName(), userPersistenceEntity.getEmail(),
                                     userPersistenceEntity.getPassword()
         );
