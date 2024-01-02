@@ -1,4 +1,4 @@
-package com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user;
+package com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
@@ -8,11 +8,11 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository
 
 // Classe que vai de fato IMPLEMENTAR os Métodos como SALVAR o Usuário, por exemplo, e como está na Camada de
 // "Infrastructure" PODE usar recursos de Frameworks!!!
-public class UserRepositoryGateway implements IUserGateway {
+public class JpaUserRepositoryGateway implements IUserGateway {
     private final JpaUserRepository jpaUserRepository;
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
 
-    public UserRepositoryGateway(
+    public JpaUserRepositoryGateway(
             JpaUserRepository jpaUserRepository, UserPersistenceEntityMapper userPersistenceEntityMapper
     ) {
         this.jpaUserRepository = jpaUserRepository;
@@ -24,12 +24,8 @@ public class UserRepositoryGateway implements IUserGateway {
         UserPersistenceEntity userPersistenceEntity = this.userPersistenceEntityMapper.toPersistence(
                 userDomainEntity);
 
-        // PRECISA CONVERTER o Usuário de DOMÍNIO (userDomainEntity) para o Usuário do BANCO de DADOS, que é
-        // o "UserPersistenceEntity", usado como PARÂMETRO no "save" !!!
         UserPersistenceEntity savedUser = this.jpaUserRepository.save(userPersistenceEntity);
 
-        // Como o Usuário SALVO no Banco de Dados é do tipo "UserPersistenceEntity", mas o RETORNO desse Método
-        // é do Tipo "UserDomainEntity", PRECISA CONVERTER o "savedUser" (Persistence) para DOMAIN!!!
         return this.userPersistenceEntityMapper.toDomain(savedUser);
     }
 }

@@ -3,7 +3,7 @@ package com.ocsoares.advancedcrudspringboot.main;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.CreateUserUseCase;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserDTOMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.UserRepositoryGateway;
+import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa.JpaUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository.jpa.JpaUserRepository;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class UserConfig {
     IUserGateway userGateway(
             JpaUserRepository jpaUserRepository, UserPersistenceEntityMapper userPersistenceEntityMapper
     ) {
-        return new UserRepositoryGateway(jpaUserRepository, userPersistenceEntityMapper);
+        return new JpaUserRepositoryGateway(jpaUserRepository, userPersistenceEntityMapper);
     }
 
     @Bean
