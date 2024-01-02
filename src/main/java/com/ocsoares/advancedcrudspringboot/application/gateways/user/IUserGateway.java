@@ -4,6 +4,6 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 
 // Esse "UserGateway" vai ser um PORTÃO de ENTRADA (uma Abstração) para a Classe em uma Camada mais
 // EXTERNA que de Fato vai ser Responsável pelos Métodos de SALVAR o Usuário, por exemplo!!
-public interface UserGateway {
+public interface IUserGateway {
     UserDomainEntity createUser(UserDomainEntity userDomainEntity);
 }

@@ -1,6 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.application.usecases.user;
 
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.UserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.interfaces.IUseCaseWithArgument;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 
@@ -11,9 +11,9 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 // ----------------------------------------------------------
 // TROCAR esse SEGUNDO "UserDomainEntity" por um DTO!!
 public class CreateUserUseCase implements IUseCaseWithArgument<UserDomainEntity, UserDomainEntity> {
-    private final UserGateway userGateway;
+    private final IUserGateway userGateway;
 
-    public CreateUserUseCase(UserGateway userGateway) {
+    public CreateUserUseCase(IUserGateway userGateway) {
         this.userGateway = userGateway;
     }
 
