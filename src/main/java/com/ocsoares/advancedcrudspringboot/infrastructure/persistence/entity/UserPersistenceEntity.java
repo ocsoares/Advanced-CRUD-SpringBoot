@@ -2,6 +2,7 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serial;
@@ -11,6 +12,7 @@ import java.util.UUID;
 // Entidade de Usuário que VAI ser Salva no BANCO de DADOS, por isso tem o "id", por exemplo!!!
 @Entity
 @Table(name = "users")
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Data
 public class UserPersistenceEntity implements Serializable {
@@ -22,5 +24,4 @@ public class UserPersistenceEntity implements Serializable {
     private final String name;
     private final String email;
     private final String password;
-
 }
