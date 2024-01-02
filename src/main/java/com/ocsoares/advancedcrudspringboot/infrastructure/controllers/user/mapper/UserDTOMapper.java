@@ -10,6 +10,6 @@ public class UserDTOMapper {
     }
 
     public CreateUserResponse toResponse(UserDomainEntity userDomainEntity) {
-        return new CreateUserResponse(userDomainEntity.name(), userDomainEntity.password());
+        return new CreateUserResponse(userDomainEntity.name(), userDomainEntity.email());
     }
 }
