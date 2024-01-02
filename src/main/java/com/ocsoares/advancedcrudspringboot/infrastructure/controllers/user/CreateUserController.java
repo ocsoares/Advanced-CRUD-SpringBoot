@@ -6,21 +6,20 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.CreateUserDTO;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserDTOMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.CreateUserResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class CreateUserController implements IControllerWithArgument<CreateUserResponse, CreateUserDTO> {
     private final CreateUserUseCase createUserUseCase;
     private final UserDTOMapper userDTOMapper;
 
-    public CreateUserController(CreateUserUseCase createUserUseCase, UserDTOMapper userDTOMapper) {
-        this.createUserUseCase = createUserUseCase;
-        this.userDTOMapper = userDTOMapper;
-    }
-
     @PostMapping("user")
-    public CreateUserResponse handle(CreateUserDTO createUserDTO) {
+    public CreateUserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) {
         // Como o "CreateUserUseCase" usa apenas o Objeto de DOMÍNIO usado nas REGRAS de NEGÓCIO da
         // Aplicação, no caso o "UserDomainEntity", PRECISA CONVERTER esse "createUserDTO" para o
         // DOMÍNIO!!!
