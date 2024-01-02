@@ -1,4 +1,4 @@
-package com.ocsoares.advancedcrudspringboot.infrastructure.gateways;
+package com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
