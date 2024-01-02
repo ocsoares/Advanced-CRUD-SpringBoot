@@ -1,5 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.application.usecases.user;
 
+import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.interfaces.IUseCaseWithArgument;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
@@ -12,13 +13,20 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 // TROCAR esse SEGUNDO "UserDomainEntity" por um DTO!!
 public class CreateUserUseCase implements IUseCaseWithArgument<UserDomainEntity, UserDomainEntity> {
     private final IUserGateway userGateway;
+    private final PasswordHasherGateway passwordHasherGateway;
 
-    public CreateUserUseCase(IUserGateway userGateway) {
+    public CreateUserUseCase(IUserGateway userGateway, PasswordHasherGateway passwordHasherGateway) {
         this.userGateway = userGateway;
+        this.passwordHasherGateway = passwordHasherGateway;
     }
 
     @Override
     public UserDomainEntity execute(UserDomainEntity userEntity) {
-        return this.userGateway.createUser(userEntity);
+        String hashedPassword = this.passwordHasherGateway.hash(userEntity.password());
+        
+        UserDomainEntity updatedUserWithHashedPassword = new UserDomainEntity(
+                userEntity.name(), userEntity.email(), hashedPassword);
+
+        return this.userGateway.createUser(updatedUserWithHashedPassword);
     }
 }
