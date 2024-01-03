@@ -6,6 +6,8 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenc
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository.jpa.JpaUserRepository;
 
+import java.util.Optional;
+
 // Classe que vai de fato IMPLEMENTAR os Métodos como SALVAR o Usuário, por exemplo, e como está na Camada de
 // "Infrastructure" PODE usar recursos de Frameworks!!!
 public class JpaUserRepositoryGateway implements IUserGateway {
@@ -20,9 +22,14 @@ public class JpaUserRepositoryGateway implements IUserGateway {
     }
 
     @Override
+    public Optional<UserDomainEntity> findUserByEmail(String email) {
+        return this.jpaUserRepository.findByEmail(email);
+
+    }
+
+    @Override
     public UserDomainEntity createUser(UserDomainEntity userDomainEntity) {
-        UserPersistenceEntity userPersistenceEntity = this.userPersistenceEntityMapper.toPersistence(
-                userDomainEntity);
+        UserPersistenceEntity userPersistenceEntity = this.userPersistenceEntityMapper.toPersistence(userDomainEntity);
 
         UserPersistenceEntity savedUser = this.jpaUserRepository.save(userPersistenceEntity);
 

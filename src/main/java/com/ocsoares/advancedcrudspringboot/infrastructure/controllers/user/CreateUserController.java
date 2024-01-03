@@ -8,6 +8,7 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappe
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.CreateUserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,13 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class CreateUserController implements IControllerWithArgument<CreateUserResponse, CreateUserDTO> {
+public class CreateUserController implements IControllerWithArgument<CreateUserResponse, CreateUserDTO, Exception> {
     private final CreateUserUseCase createUserUseCase;
     private final UserDTOMapper userDTOMapper;
 
+    @Override
     @PostMapping("user")
     @Transactional
-    public CreateUserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) {
+    public CreateUserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) throws BadRequestException {
         // Como o "CreateUserUseCase" usa apenas o Objeto de DOMÍNIO usado nas REGRAS de NEGÓCIO da
         // Aplicação, no caso o "UserDomainEntity", PRECISA CONVERTER esse "createUserDTO" para o
         // DOMÍNIO!!!
