@@ -4,7 +4,7 @@ import com.ocsoares.advancedcrudspringboot.application.gateways.security.Passwor
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.interfaces.IUseCaseWithArgument;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
-import org.apache.coyote.BadRequestException;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 
 import java.util.Optional;
 
@@ -24,11 +24,11 @@ public class CreateUserUseCase implements IUseCaseWithArgument<UserDomainEntity,
     }
 
     @Override
-    public UserDomainEntity execute(UserDomainEntity userEntity) throws BadRequestException {
+    public UserDomainEntity execute(UserDomainEntity userEntity) throws UserAlreadyExistsByEmailException {
         Optional<UserDomainEntity> userAlreadyExists = this.userGateway.findUserByEmail(userEntity.email());
 
         if (userAlreadyExists.isPresent()) {
-            throw new BadRequestException("There is already a user registered with this email !");
+            throw new UserAlreadyExistsByEmailException();
         }
 
         String hashedPassword = this.passwordHasherGateway.hash(userEntity.password());
