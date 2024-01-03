@@ -9,9 +9,11 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.respo
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,6 +24,7 @@ public class CreateUserController implements IControllerWithArgument<CreateUserR
 
     @Override
     @PostMapping("user")
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public CreateUserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) throws BadRequestException {
         // Como o "CreateUserUseCase" usa apenas o Objeto de DOMÍNIO usado nas REGRAS de NEGÓCIO da
