@@ -1,4 +1,4 @@
-package com.ocsoares.advancedcrudspringboot.main;
+package com.ocsoares.advancedcrudspringboot.main.config;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;

@@ -1,4 +1,4 @@
-package com.ocsoares.advancedcrudspringboot.main;
+package com.ocsoares.advancedcrudspringboot.main.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,13 +12,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // Deixa TODAS as Rotas PÚBLICAS!!!
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll() // Deixa TODAS as Rotas PÚBLICAS!!!
                 )
                 // DESATIVANDO o CSRF Token em DESENVOLVIMENTO (porque usando POST retorna FORBIDDEN)!!
-                .csrf(csrf -> csrf.disable())
-                .httpBasic(withDefaults());
+                .csrf(csrf -> csrf.disable()).httpBasic(withDefaults());
 
         return http.build();
     }
