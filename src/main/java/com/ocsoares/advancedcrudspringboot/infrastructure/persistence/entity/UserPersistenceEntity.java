@@ -21,7 +21,13 @@ public class UserPersistenceEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Column(nullable = false)
     private final String name;
+
+    @Column(unique = true, nullable = false)
     private final String email;
+
+    @Column(nullable = false)
     private final String password;
 }
