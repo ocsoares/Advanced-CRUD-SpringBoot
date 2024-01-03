@@ -2,6 +2,7 @@ package com.ocsoares.advancedcrudspringboot.application.gateways.user;
 
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 // Esse "UserGateway" vai ser um PORTÃO de ENTRADA (uma Abstração) para a Classe em uma Camada mais
@@ -9,4 +10,5 @@ import java.util.Optional;
 public interface IUserGateway {
     UserDomainEntity createUser(UserDomainEntity userDomainEntity);
     Optional<UserDomainEntity> findUserByEmail(String email);
+    List<UserDomainEntity> findAllUsers();
 }

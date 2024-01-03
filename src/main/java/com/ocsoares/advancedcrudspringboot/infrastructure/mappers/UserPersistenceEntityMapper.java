@@ -3,6 +3,8 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.mappers;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 
+import java.util.List;
+
 public class UserPersistenceEntityMapper {
     public UserPersistenceEntity toPersistence(UserDomainEntity userDomainEntity) {
         return new UserPersistenceEntity(
@@ -13,5 +15,9 @@ public class UserPersistenceEntityMapper {
         return new UserDomainEntity(userPersistenceEntity.getName(), userPersistenceEntity.getEmail(),
                                     userPersistenceEntity.getPassword()
         );
+    }
+
+    public List<UserDomainEntity> toDomainList(List<UserPersistenceEntity> userPersistenceEntityList) {
+        return userPersistenceEntityList.stream().map(this::toDomain).toList();
     }
 }

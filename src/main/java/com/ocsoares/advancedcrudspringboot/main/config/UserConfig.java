@@ -3,7 +3,8 @@ package com.ocsoares.advancedcrudspringboot.main.config;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.CreateUserUseCase;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserDTOMapper;
+import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindAllUsersUseCase;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.security.bcrypt.BcryptHasher;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa.JpaUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
@@ -19,6 +20,11 @@ public class UserConfig {
     @Bean
     public CreateUserUseCase createUserUseCase(IUserGateway userGateway, PasswordHasherGateway passwordHasherGateway) {
         return new CreateUserUseCase(userGateway, passwordHasherGateway);
+    }
+
+    @Bean
+    public FindAllUsersUseCase findAllUsersUseCase(IUserGateway userGateway) {
+        return new FindAllUsersUseCase(userGateway);
     }
 
     @Bean
@@ -39,7 +45,7 @@ public class UserConfig {
     }
 
     @Bean
-    public UserDTOMapper userDTOMapper() {
-        return new UserDTOMapper();
+    public UserControllerMapper userDTOMapper() {
+        return new UserControllerMapper();
     }
 }
