@@ -4,7 +4,7 @@ import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindAllUser
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithoutArgument;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.CreateUserResponse;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +15,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class FindAllUsersController implements IControllerWithoutArgument<List<CreateUserResponse>> {
+public class FindAllUsersController implements IControllerWithoutArgument<List<UserResponse>> {
     private final FindAllUsersUseCase findAllUsersUseCase;
     private final UserControllerMapper userControllerMapper;
 
     @Override
     @GetMapping("user")
     @ResponseStatus(HttpStatus.OK)
-    public List<CreateUserResponse> handle() {
+    public List<UserResponse> handle() {
         List<UserDomainEntity> allUsersFound = this.findAllUsersUseCase.execute();
 
         return this.userControllerMapper.toResponseList(allUsersFound);

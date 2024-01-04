@@ -6,7 +6,7 @@ import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExi
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.CreateUserDTO;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.CreateUserResponse;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class CreateUserController implements IControllerWithArgument<CreateUserResponse, CreateUserDTO, Exception> {
+public class CreateUserController implements IControllerWithArgument<UserResponse, CreateUserDTO, Exception> {
     private final CreateUserUseCase createUserUseCase;
     private final UserControllerMapper userControllerMapper;
 
@@ -26,7 +26,7 @@ public class CreateUserController implements IControllerWithArgument<CreateUserR
     @PostMapping("user")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public CreateUserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) throws
+    public UserResponse handle(@RequestBody @Valid CreateUserDTO createUserDTO) throws
             UserAlreadyExistsByEmailException {
         // Como o "CreateUserUseCase" usa apenas o Objeto de DOMÍNIO usado nas REGRAS de NEGÓCIO da
         // Aplicação, no caso o "UserDomainEntity", PRECISA CONVERTER esse "createUserDTO" para o
