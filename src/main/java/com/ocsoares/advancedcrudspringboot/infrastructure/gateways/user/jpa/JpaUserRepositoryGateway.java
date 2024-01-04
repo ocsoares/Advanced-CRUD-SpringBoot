@@ -64,4 +64,20 @@ public class JpaUserRepositoryGateway implements IUserGateway {
 
         return null;
     }
+
+    @Override
+    public Void updateUserById(UUID id, UserDomainEntity userDomainEntity) {
+        Optional<UserPersistenceEntity> foundUserById = this.jpaUserRepository.findById(id);
+
+        if (foundUserById.isPresent()) {
+            UserPersistenceEntity user = foundUserById.get();
+            user.setName(userDomainEntity.name());
+            user.setEmail(userDomainEntity.email());
+            user.setPassword(userDomainEntity.password());
+
+            this.jpaUserRepository.save(user);
+        }
+
+        return null;
+    }
 }

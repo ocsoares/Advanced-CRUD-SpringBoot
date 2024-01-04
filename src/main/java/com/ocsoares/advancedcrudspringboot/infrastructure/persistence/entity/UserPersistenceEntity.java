@@ -3,6 +3,7 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serial;
@@ -23,11 +24,14 @@ public class UserPersistenceEntity implements Serializable {
     private UUID id;
 
     @Column(nullable = false)
-    private final String name;
+    @NonNull
+    private String name;
 
     @Column(unique = true, nullable = false)
-    private final String email;
+    @NonNull
+    private String email;
 
     @Column(nullable = false)
-    private final String password;
+    @NonNull
+    private String password;
 }

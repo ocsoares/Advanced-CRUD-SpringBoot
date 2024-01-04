@@ -2,10 +2,7 @@ package com.ocsoares.advancedcrudspringboot.main.config;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
-import com.ocsoares.advancedcrudspringboot.application.usecases.user.CreateUserUseCase;
-import com.ocsoares.advancedcrudspringboot.application.usecases.user.DeleteUserUseCase;
-import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindAllUsersUseCase;
-import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindUserUseCase;
+import com.ocsoares.advancedcrudspringboot.application.usecases.user.*;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.security.bcrypt.BcryptHasher;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa.JpaUserRepositoryGateway;
@@ -32,6 +29,11 @@ public class UserConfig {
     @Bean
     public FindUserUseCase findUserUseCase(IUserGateway userGateway) {
         return new FindUserUseCase(userGateway);
+    }
+
+    @Bean
+    public UpdateUserUseCase updateUserUseCase(IUserGateway userGateway, PasswordHasherGateway passwordHasherGateway) {
+        return new UpdateUserUseCase(userGateway, passwordHasherGateway);
     }
 
     @Bean

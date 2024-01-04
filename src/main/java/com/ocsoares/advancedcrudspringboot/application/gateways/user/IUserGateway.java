@@ -14,4 +14,5 @@ public interface IUserGateway {
     List<UserDomainEntity> findAllUsers();
     Optional<UserDomainEntity> findUserById(UUID id);
     Void deleteUserById(UUID id);
+    Void updateUserById(UUID id, UserDomainEntity userDomainEntity);
 }
