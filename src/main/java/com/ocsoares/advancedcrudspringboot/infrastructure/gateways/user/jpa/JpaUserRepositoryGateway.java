@@ -57,4 +57,11 @@ public class JpaUserRepositoryGateway implements IUserGateway {
 
         return Optional.empty();
     }
+
+    @Override
+    public Void deleteUserById(UUID id) {
+        this.jpaUserRepository.deleteById(id);
+
+        return null;
+    }
 }

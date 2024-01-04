@@ -13,4 +13,5 @@ public interface IUserGateway {
     Optional<UserDomainEntity> findUserByEmail(String email);
     List<UserDomainEntity> findAllUsers();
     Optional<UserDomainEntity> findUserById(UUID id);
+    Void deleteUserById(UUID id);
 }
