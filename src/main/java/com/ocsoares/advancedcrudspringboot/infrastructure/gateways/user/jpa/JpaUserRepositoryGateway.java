@@ -8,6 +8,7 @@ import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 // Classe que vai de fato IMPLEMENTAR os Métodos como SALVAR o Usuário, por exemplo, e como está na Camada de
 // "Infrastructure" PODE usar recursos de Frameworks!!!
@@ -42,5 +43,18 @@ public class JpaUserRepositoryGateway implements IUserGateway {
         List<UserPersistenceEntity> allUsersFound = this.jpaUserRepository.findAll();
 
         return this.userPersistenceEntityMapper.toDomainList(allUsersFound);
+    }
+
+    @Override
+    public Optional<UserDomainEntity> findUserById(UUID id) {
+        Optional<UserPersistenceEntity> userFoundById = this.jpaUserRepository.findById(id);
+
+        if (userFoundById.isPresent()) {
+            UserDomainEntity userDomainFoundById = this.userPersistenceEntityMapper.toDomain(userFoundById.get());
+
+            return Optional.of(userDomainFoundById);
+        }
+
+        return Optional.empty();
     }
 }
