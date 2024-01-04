@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-// MUDAR o NOME desse "CreateUserResponse" para algo mais GENÉRICO!!!
 public class FindUserController implements IControllerWithArgument<UserResponse, UUID, Exception> {
     private final FindUserUseCase findUserUseCase;
     private final UserControllerMapper userControllerMapper;
