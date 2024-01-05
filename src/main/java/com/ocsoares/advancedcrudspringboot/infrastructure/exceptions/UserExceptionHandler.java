@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
-public class ControllerExceptionHandler {
+public class UserExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsByEmailException.class)
     public ResponseEntity<MessageAndStatusCodeResponse> handleUserAlreadyExistsByEmailException(
             UserAlreadyExistsByEmailException exception
