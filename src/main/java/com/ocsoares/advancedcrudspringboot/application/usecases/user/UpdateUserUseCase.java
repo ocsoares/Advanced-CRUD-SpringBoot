@@ -9,7 +9,7 @@ import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByI
 import java.util.Optional;
 import java.util.UUID;
 
-public class UpdateUserUseCase implements IUseCaseWithTwoArguments<UserDomainEntity, UUID, UserDomainEntity, Exception> {
+public class UpdateUserUseCase implements IUseCaseWithTwoArguments<Void, UUID, UserDomainEntity, Exception> {
     private final IUserGateway userGateway;
     private final PasswordHasherGateway passwordHasherGateway;
 
@@ -19,7 +19,7 @@ public class UpdateUserUseCase implements IUseCaseWithTwoArguments<UserDomainEnt
     }
 
     @Override
-    public UserDomainEntity execute(UUID id, UserDomainEntity userDomainEntity) throws InvalidUserByIdException {
+    public Void execute(UUID id, UserDomainEntity userDomainEntity) throws InvalidUserByIdException {
         Optional<UserDomainEntity> userFoundById = this.userGateway.findUserById(id);
 
         if (userFoundById.isEmpty()) {
@@ -31,8 +31,6 @@ public class UpdateUserUseCase implements IUseCaseWithTwoArguments<UserDomainEnt
         UserDomainEntity userDomainWithHashedPassword = new UserDomainEntity(
                 userDomainEntity.name(), userDomainEntity.email(), hashedPassword);
 
-        this.userGateway.updateUserById(id, userDomainWithHashedPassword);
-
-        return null;
+        return this.userGateway.updateUserById(id, userDomainWithHashedPassword);
     }
 }
