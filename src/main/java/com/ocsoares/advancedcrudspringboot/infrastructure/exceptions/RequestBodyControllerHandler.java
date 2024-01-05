@@ -17,7 +17,7 @@ import java.util.List;
 @RestControllerAdvice
 public class RequestBodyControllerHandler {
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class, HttpMessageNotReadableException.class})
-    public ResponseEntity<MessageAndStatusCodeResponse> handleHttpMediaTypeNotSupportedException(
+    public ResponseEntity<MessageAndStatusCodeResponse> handleInvalidRequestBody(
     ) {
         MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
                 "The request body must be in valid JSON format", HttpStatus.BAD_REQUEST.value());
