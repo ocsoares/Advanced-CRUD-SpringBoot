@@ -39,6 +39,16 @@ public class UserExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyResponse);
     }
 
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleUnsupportedOperationException(
+            UnsupportedOperationException exception
+    ) {
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
+                exception.getMessage(), HttpStatus.NOT_IMPLEMENTED.value());
+
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(bodyResponse);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
         MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
