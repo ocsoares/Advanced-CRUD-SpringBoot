@@ -23,7 +23,7 @@ public class CreateUserController implements IControllerWithArgument<UserRespons
     private final UserControllerMapper userControllerMapper;
 
     @Override
-    @PostMapping("user")
+    @PostMapping("auth/user")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public UserResponse handle(@RequestBody @Valid UserDTO userDTO) throws UserAlreadyExistsByEmailException {
