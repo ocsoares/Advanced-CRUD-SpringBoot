@@ -39,6 +39,7 @@ public class UserPersistenceEntity implements Serializable, UserDetails {
     @NonNull
     private String password;
 
+    // Método responsável por Atribuir as ROLES de PERMISSÕES para cada TIPO de USUÁRIO!!!
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();
