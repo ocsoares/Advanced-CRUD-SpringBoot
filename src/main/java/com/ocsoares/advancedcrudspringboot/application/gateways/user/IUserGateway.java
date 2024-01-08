@@ -10,7 +10,7 @@ import java.util.UUID;
 // EXTERNA que de Fato vai ser Responsável pelos Métodos de SALVAR o Usuário, por exemplo!!
 public interface IUserGateway {
     UserDomainEntity createUser(UserDomainEntity userDomainEntity);
-    Optional<UserDomainEntity> findUserByEmail(String email);
+    <T> Optional<T> findUserByEmail(String email); // Tipo "Generic" porque VAI ser "UserDomainEntity" ou "UserDetails"
     List<UserDomainEntity> findAllUsers();
     Optional<UserDomainEntity> findUserById(UUID id);
     Void deleteUserById(UUID id);

@@ -5,6 +5,7 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository.jpa.JpaUserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,9 +34,9 @@ public class JpaUserRepositoryGateway implements IUserGateway {
     }
 
     @Override
-    public Optional<UserDomainEntity> findUserByEmail(String email) {
+    @SuppressWarnings("unchecked")
+    public Optional<UserDetails> findUserByEmail(String email) {
         return this.jpaUserRepository.findByEmail(email);
-
     }
 
     @Override
