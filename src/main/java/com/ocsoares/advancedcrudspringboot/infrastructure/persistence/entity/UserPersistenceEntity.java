@@ -5,9 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 
 // Entidade de Usuário que VAI ser Salva no BANCO de DADOS, por isso tem o "id", por exemplo!!!
@@ -16,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Data
-public class UserPersistenceEntity implements Serializable {
+public class UserPersistenceEntity implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,4 +38,34 @@ public class UserPersistenceEntity implements Serializable {
     @Column(nullable = false)
     @NonNull
     private String password;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email; // Vou autenticar por EMAIL e SENHA
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
