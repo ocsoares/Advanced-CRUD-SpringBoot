@@ -1,8 +1,8 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.exceptions;
 
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.response.MessageAndStatusCodeResponse;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByIdException;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
-import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.response.MessageAndStatusCodeResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

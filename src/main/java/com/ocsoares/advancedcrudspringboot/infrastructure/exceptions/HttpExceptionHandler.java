@@ -1,6 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.exceptions;
 
-import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.response.MessageAndStatusCodeResponse;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.response.MessageAndStatusCodeResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
