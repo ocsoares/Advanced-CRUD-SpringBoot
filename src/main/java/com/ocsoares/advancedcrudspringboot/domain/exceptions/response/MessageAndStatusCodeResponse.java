@@ -1,4 +1,4 @@
-package com.ocsoares.advancedcrudspringboot.domain.exceptions.user.response;
+package com.ocsoares.advancedcrudspringboot.domain.exceptions.response;
 
 public record MessageAndStatusCodeResponse(String message, Integer statusCode) {
 }
