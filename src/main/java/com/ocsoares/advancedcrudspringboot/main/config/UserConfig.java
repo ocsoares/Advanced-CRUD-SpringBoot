@@ -1,8 +1,10 @@
 package com.ocsoares.advancedcrudspringboot.main.config;
 
+import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.*;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.LoginUserController;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.security.bcrypt.BcryptHasher;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa.JpaUserRepositoryGateway;
@@ -39,6 +41,11 @@ public class UserConfig {
     @Bean
     public DeleteUserUseCase deleteUserUseCase(IUserGateway userGateway) {
         return new DeleteUserUseCase(userGateway);
+    }
+
+    @Bean
+    public LoginUserController loginUserController(IAuthServiceGateway authServiceGateway) {
+        return new LoginUserController(authServiceGateway);
     }
 
     @Bean
