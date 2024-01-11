@@ -14,8 +14,9 @@ public class HttpExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException exception
     ) {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.METHOD_NOT_ALLOWED.value());
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.METHOD_NOT_ALLOWED.value()
+        );
 
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(bodyResponse);
     }
@@ -24,8 +25,9 @@ public class HttpExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleNoResourceFoundException(
             NoResourceFoundException exception
     ) {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.NOT_FOUND.value());
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.NOT_FOUND.value()
+        );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(bodyResponse);
     }

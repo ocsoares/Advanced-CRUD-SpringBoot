@@ -21,7 +21,7 @@ public class DeleteUserController implements IControllerWithArgument<Void, UUID,
     @Override
     public Void handle(@PathVariable(value = "id") UUID id) throws Exception {
         this.deleteUserUseCase.execute(id);
-        
+
         return null;
     }
 }

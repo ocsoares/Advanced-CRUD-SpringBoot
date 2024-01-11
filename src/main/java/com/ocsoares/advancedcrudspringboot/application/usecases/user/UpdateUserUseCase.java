@@ -30,8 +30,9 @@ public class UpdateUserUseCase implements IUseCaseWithTwoArguments<Void, UUID, U
 
         String hashedPassword = this.passwordHasherGateway.hash(userDomainEntity.password());
 
-        UserDomainEntity userDomainWithHashedPassword = new UserDomainEntity(
-                userDomainEntity.name(), userDomainEntity.email(), hashedPassword);
+        UserDomainEntity userDomainWithHashedPassword = new UserDomainEntity(userDomainEntity.name(),
+                userDomainEntity.email(), hashedPassword
+        );
 
         return this.userRepositoryGateway.updateUserById(id, userDomainWithHashedPassword);
     }

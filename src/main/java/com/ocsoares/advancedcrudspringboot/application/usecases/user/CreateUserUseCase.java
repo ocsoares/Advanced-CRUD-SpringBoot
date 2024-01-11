@@ -35,8 +35,9 @@ public class CreateUserUseCase implements IUseCaseWithArgument<UserDomainEntity,
 
         String hashedPassword = this.passwordHasherGateway.hash(userEntity.password());
 
-        UserDomainEntity userWithHashedPassword = new UserDomainEntity(
-                userEntity.name(), userEntity.email(), hashedPassword);
+        UserDomainEntity userWithHashedPassword = new UserDomainEntity(userEntity.name(), userEntity.email(),
+                hashedPassword
+        );
 
         return this.userRepositoryGateway.createUser(userWithHashedPassword);
 

@@ -17,8 +17,9 @@ public class SecurityExceptionHandler {
     ) {
         // Usei "var" aqui porque o Tipo do Retorno OBVIAMENTE vai ser "MessageAndStatusCodeResponse", mas digitar assim
         // ficaria MUITO Extenso sem necessidade!!!
-        var bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
     }
@@ -27,8 +28,9 @@ public class SecurityExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleErrorJWTVerificationException(
             ErrorJWTVerificationException exception
     ) {
-        var bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
     }

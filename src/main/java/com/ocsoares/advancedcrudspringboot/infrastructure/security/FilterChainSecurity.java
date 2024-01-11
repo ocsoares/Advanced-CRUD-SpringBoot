@@ -20,12 +20,12 @@ public class FilterChainSecurity {
         // DESATIVANDO o CSRF Token porque ele é mais usado com COOKIES (no FrontEnd) e vou usar com TOKENS
         // no Backend!!!
         return httpSecurity.csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Para QUALQUER Rota com "/auth" NÃO irá pedir Autenticação, mas para TODAS as Outras VAI Pedir AUTENTICAÇÃO!!!
-                .authorizeHttpRequests(
-                        authorize -> authorize.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                           // Para QUALQUER Rota com "/auth" NÃO irá pedir Autenticação, mas para TODAS as Outras VAI Pedir AUTENTICAÇÃO!!!
+                           .authorizeHttpRequests(
+                                   authorize -> authorize.requestMatchers("/auth/**").permitAll().anyRequest()
+                                                         .authenticated())
+                           .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 }

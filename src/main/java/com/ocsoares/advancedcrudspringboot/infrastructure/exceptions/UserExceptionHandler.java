@@ -15,8 +15,9 @@ public class UserExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleUserAlreadyExistsByEmailException(
             UserAlreadyExistsByEmailException exception
     ) {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.CONFLICT.value());
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.CONFLICT.value()
+        );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(bodyResponse);
     }
@@ -33,8 +34,9 @@ public class UserExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleInvalidUserByIdException(
             InvalidUserByIdException exception
     ) {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.BAD_REQUEST.value());
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.BAD_REQUEST.value()
+        );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyResponse);
     }
@@ -43,8 +45,9 @@ public class UserExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleUnsupportedOperationException(
             UnsupportedOperationException exception
     ) {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                exception.getMessage(), HttpStatus.NOT_IMPLEMENTED.value());
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                HttpStatus.NOT_IMPLEMENTED.value()
+        );
 
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(bodyResponse);
     }

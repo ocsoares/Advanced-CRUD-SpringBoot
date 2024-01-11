@@ -50,8 +50,9 @@ public class SecurityFilter extends OncePerRequestFilter {
                 // TRANSFORMANDO o "UserDomainEntity" para "UserPersistenceEntity", porque ele É UM "UserDetails" !!!
                 UserPersistenceEntity userPersistence = this.userPersistenceEntityMapper.toPersistence(userDomain);
 
-                var authentication = new UsernamePasswordAuthenticationToken(
-                        userPersistence, null, userPersistence.getAuthorities());
+                var authentication = new UsernamePasswordAuthenticationToken(userPersistence, null,
+                        userPersistence.getAuthorities()
+                );
 
                 // SETA a Autenticação!!!
                 SecurityContextHolder.getContext().setAuthentication(authentication);
