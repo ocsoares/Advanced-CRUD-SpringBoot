@@ -18,6 +18,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Optional;
 
+// NÃO precisa usar "@Component" ou algo desse Tipo aqui porque JÁ ESTÁ sendo INSTANCIADO por um "@Bean" em
+// "SecurityConfig" anotado com "@Configuration", o que permite que outras Classes possam usar "@Autowired"
+// nessa Classe para usá-la!!!
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
     private final ITokenServiceGateway tokenServiceGateway;
@@ -36,7 +39,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             try {
                 email = tokenServiceGateway.validateToken(token);
             } catch (ErrorJWTVerificationException e) {
-                System.out.println("ERROR: " + e);
                 throw new ServletException(e.getMessage());
             }
 

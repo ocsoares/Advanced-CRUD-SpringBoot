@@ -1,27 +1,34 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.services.auth;
 
-import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthManagerGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorCreatingJWTException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
+import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService, IAuthServiceGateway {
     private final IUserGateway userGateway;
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
-    private final IAuthManagerGateway<Authentication> authManagerGateway;
     private final ITokenServiceGateway tokenServiceGateway;
+    @Autowired
+    private ApplicationContext applicationContext;
+    private AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -38,10 +45,15 @@ public class AuthService implements UserDetailsService, IAuthServiceGateway {
 
     @Override
     public String login(String email, String password) throws ErrorCreatingJWTException {
-        var authenticationByUsernameAndPassword = new UsernamePasswordAuthenticationToken(email, password);
-        Authentication authenticatedUser = this.authManagerGateway.authenticate(authenticationByUsernameAndPassword);
+        authenticationManager = applicationContext.getBean(AuthenticationManager.class);
 
-        // VER se essa Conversão FUNCIONA Mesmo !!!
-        return this.tokenServiceGateway.generateToken((UserDomainEntity) authenticatedUser.getPrincipal());
+        var authenticationByUsernameAndPassword = new UsernamePasswordAuthenticationToken(email, password);
+        Authentication authenticatedUser = this.authenticationManager.authenticate(authenticationByUsernameAndPassword);
+
+        UserPersistenceEntity persistenceAuthenticatedUser = (UserPersistenceEntity) authenticatedUser.getPrincipal();
+        UserDomainEntity domainAuthenticatedUser = this.userPersistenceEntityMapper.toDomain(
+                persistenceAuthenticatedUser);
+
+        return this.tokenServiceGateway.generateToken(domainAuthenticatedUser);
     }
 }
