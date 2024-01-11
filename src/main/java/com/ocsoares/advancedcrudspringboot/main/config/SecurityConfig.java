@@ -2,7 +2,7 @@ package com.ocsoares.advancedcrudspringboot.main.config;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.security.bcrypt.BcryptHasher;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.security.SecurityFilter;
@@ -32,10 +32,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilter securityFilter(
-            ITokenServiceGateway tokenServiceGateway, IUserGateway userGateway,
+            ITokenServiceGateway tokenServiceGateway, IUserRepositoryGateway userRepositoryGateway,
             UserPersistenceEntityMapper userPersistenceEntityMapper
     ) {
-        return new SecurityFilter(tokenServiceGateway, userGateway, userPersistenceEntityMapper);
+        return new SecurityFilter(tokenServiceGateway, userRepositoryGateway, userPersistenceEntityMapper);
     }
 
     @Bean

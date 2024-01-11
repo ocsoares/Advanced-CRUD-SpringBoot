@@ -2,7 +2,7 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.serv
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenServiceGateway;
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorCreatingJWTException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService, IAuthServiceGateway {
-    private final IUserGateway userGateway;
+    private final IUserRepositoryGateway userRepositoryGateway;
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
     private final ITokenServiceGateway tokenServiceGateway;
     @Autowired
@@ -32,7 +32,7 @@ public class AuthService implements UserDetailsService, IAuthServiceGateway {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<UserDomainEntity> userFoundByEmail = this.userGateway.findUserByEmail(email);
+        Optional<UserDomainEntity> userFoundByEmail = this.userRepositoryGateway.findUserByEmail(email);
 
         if (userFoundByEmail.isEmpty()) {
             throw new UsernameNotFoundException("Invalid credentials");

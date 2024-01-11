@@ -2,7 +2,7 @@ package com.ocsoares.advancedcrudspringboot.main.config;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.*;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.LoginUserController;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
@@ -17,28 +17,32 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UserConfig {
     @Bean
-    public CreateUserUseCase createUserUseCase(IUserGateway userGateway, PasswordHasherGateway passwordHasherGateway) {
-        return new CreateUserUseCase(userGateway, passwordHasherGateway);
+    public CreateUserUseCase createUserUseCase(
+            IUserRepositoryGateway userRepositoryGateway, PasswordHasherGateway passwordHasherGateway
+    ) {
+        return new CreateUserUseCase(userRepositoryGateway, passwordHasherGateway);
     }
 
     @Bean
-    public FindAllUsersUseCase findAllUsersUseCase(IUserGateway userGateway) {
-        return new FindAllUsersUseCase(userGateway);
+    public FindAllUsersUseCase findAllUsersUseCase(IUserRepositoryGateway userRepositoryGateway) {
+        return new FindAllUsersUseCase(userRepositoryGateway);
     }
 
     @Bean
-    public FindUserUseCase findUserUseCase(IUserGateway userGateway) {
-        return new FindUserUseCase(userGateway);
+    public FindUserUseCase findUserUseCase(IUserRepositoryGateway userRepositoryGateway) {
+        return new FindUserUseCase(userRepositoryGateway);
     }
 
     @Bean
-    public UpdateUserUseCase updateUserUseCase(IUserGateway userGateway, PasswordHasherGateway passwordHasherGateway) {
-        return new UpdateUserUseCase(userGateway, passwordHasherGateway);
+    public UpdateUserUseCase updateUserUseCase(
+            IUserRepositoryGateway userRepositoryGateway, PasswordHasherGateway passwordHasherGateway
+    ) {
+        return new UpdateUserUseCase(userRepositoryGateway, passwordHasherGateway);
     }
 
     @Bean
-    public DeleteUserUseCase deleteUserUseCase(IUserGateway userGateway) {
-        return new DeleteUserUseCase(userGateway);
+    public DeleteUserUseCase deleteUserUseCase(IUserRepositoryGateway userRepositoryGateway) {
+        return new DeleteUserUseCase(userRepositoryGateway);
     }
 
     @Bean
@@ -47,12 +51,12 @@ public class UserConfig {
     }
 
     @Bean
-    public IUserGateway userGateway(
+    public IUserRepositoryGateway userRepositoryGateway(
             JpaUserRepository jpaUserRepository, UserPersistenceEntityMapper userPersistenceEntityMapper
     ) {
         return new JpaUserRepositoryGateway(jpaUserRepository, userPersistenceEntityMapper);
     }
-    
+
     @Bean
     public UserPersistenceEntityMapper userPersistenceEntityMapper() {
         return new UserPersistenceEntityMapper();

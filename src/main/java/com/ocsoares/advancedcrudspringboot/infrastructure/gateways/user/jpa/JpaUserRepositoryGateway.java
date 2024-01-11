@@ -1,6 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa;
 
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 // Classe que vai de fato IMPLEMENTAR os Métodos como SALVAR o Usuário, por exemplo, e como está na Camada de
 // "Infrastructure" PODE usar recursos de Frameworks!!!
-public class JpaUserRepositoryGateway implements IUserGateway {
+public class JpaUserRepositoryGateway implements IUserRepositoryGateway {
     private final JpaUserRepository jpaUserRepository;
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
 

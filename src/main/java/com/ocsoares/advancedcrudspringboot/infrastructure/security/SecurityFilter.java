@@ -1,7 +1,7 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.security;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenServiceGateway;
-import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorJWTVerificationException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
     private final ITokenServiceGateway tokenServiceGateway;
-    private final IUserGateway userGateway;
+    private final IUserRepositoryGateway userRepositoryGateway;
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
 
     @Override
@@ -42,7 +42,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 throw new ServletException(e.getMessage());
             }
 
-            Optional<UserDomainEntity> userFoundByEmail = userGateway.findUserByEmail(email);
+            Optional<UserDomainEntity> userFoundByEmail = userRepositoryGateway.findUserByEmail(email);
 
             if (userFoundByEmail.isPresent()) {
                 UserDomainEntity userDomain = userFoundByEmail.get();
