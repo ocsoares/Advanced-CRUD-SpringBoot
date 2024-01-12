@@ -5,6 +5,7 @@ import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenS
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorCreatingJWTException;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByEmailException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class AuthService implements UserDetailsService, IAuthServiceGateway {
     }
 
     @Override
-    public String login(String email, String password) throws ErrorCreatingJWTException {
+    public String login(String email, String password) throws ErrorCreatingJWTException, InvalidUserByEmailException {
         authenticationManager = applicationContext.getBean(AuthenticationManager.class);
 
         var authenticationByUsernameAndPassword = new UsernamePasswordAuthenticationToken(email, password);
@@ -54,6 +55,10 @@ public class AuthService implements UserDetailsService, IAuthServiceGateway {
         UserDomainEntity domainAuthenticatedUser = this.userPersistenceEntityMapper.toDomain(
                 persistenceAuthenticatedUser);
 
-        return this.tokenServiceGateway.generateToken(domainAuthenticatedUser);
+        // Esse trecho NÃO vai ser Executado se o Login for INVÁLIDO !!!!
+        String userId = this.userRepositoryGateway.getUserIdByEmail(email)
+                                                  .orElseThrow(InvalidUserByEmailException::new);
+
+        return this.tokenServiceGateway.generateToken(userId, domainAuthenticatedUser);
     }
 }

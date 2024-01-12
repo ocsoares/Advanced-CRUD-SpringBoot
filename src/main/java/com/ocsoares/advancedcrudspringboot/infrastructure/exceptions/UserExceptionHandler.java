@@ -1,6 +1,7 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.exceptions;
 
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.response.MessageAndStatusCodeResponse;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByEmailException;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByIdException;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,15 @@ public class UserExceptionHandler {
         MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
                 HttpStatus.BAD_REQUEST.value()
         );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyResponse);
+    }
+
+    @ExceptionHandler(InvalidUserByEmailException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleInvalidUserByEmailException(
+            InvalidUserByEmailException exception
+    ) {
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyResponse);
     }

@@ -34,7 +34,16 @@ public class JpaUserRepositoryGateway implements IUserRepositoryGateway {
 
     @Override
     public Optional<UserDomainEntity> findUserByEmail(String email) {
-        return this.jpaUserRepository.findByEmail(email);
+        Optional<UserPersistenceEntity> userByEmail = this.jpaUserRepository.findByEmail(email);
+
+        if (userByEmail.isPresent()) {
+            UserPersistenceEntity userPersistence = userByEmail.get();
+            UserDomainEntity userDomain = this.userPersistenceEntityMapper.toDomain(userPersistence);
+
+            return Optional.of(userDomain);
+        }
+
+        return Optional.empty();
     }
 
     @Override
@@ -78,5 +87,19 @@ public class JpaUserRepositoryGateway implements IUserRepositoryGateway {
         }
 
         return null;
+    }
+
+    @Override
+    public Optional<String> getUserIdByEmail(String email) {
+        Optional<UserPersistenceEntity> userByEmail = this.jpaUserRepository.findByEmail(email);
+
+        if (userByEmail.isPresent()) {
+            UserPersistenceEntity userPersistence = userByEmail.get();
+            String userId = userPersistence.getId().toString();
+
+            return Optional.of(userId);
+        }
+
+        return Optional.empty();
     }
 }
