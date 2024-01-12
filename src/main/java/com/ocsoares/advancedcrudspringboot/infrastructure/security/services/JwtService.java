@@ -30,9 +30,8 @@ public class JwtService implements ITokenServiceGateway {
             Algorithm algorithm = Algorithm.HMAC256(JwtService.JWT_SECRET);
 
             return JWT.create().withIssuer(JwtService.JWT_ISSUER) // Nome do EMISSOR
-                      .withSubject(id) // É o "sub" do JWT, a quem o Token PERTENCE
-                      .withClaim("name", userPersistenceEntity.getName())
-                      .withClaim("email", userPersistenceEntity.getEmail())
+                      .withSubject(userPersistenceEntity.getEmail()) // É o "sub" do JWT, a quem o Token PERTENCE
+                      .withClaim("id", id).withClaim("name", userPersistenceEntity.getName())
                       .withExpiresAt(getExpirationDate(24, "-03:00")).sign(algorithm); // "-03:00" = Brasil
 
         } catch (JWTCreationException exception) {
