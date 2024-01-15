@@ -63,7 +63,7 @@ class CreateUserUseCaseTest {
         var userWithHashedPassword = new UserDomainEntity(testUser.name(), testUser.email(), hashedPassword);
         when(this.userRepositoryGateway.createUser(userWithHashedPassword)).thenReturn(userWithHashedPassword);
 
-        var userResponse = new UserResponse(testUser.name(), testUser.email());
+        var userResponse = TestUtils.toResponse(userWithHashedPassword);
         when(this.userUseCaseMapper.toResponse(userWithHashedPassword)).thenReturn(userResponse);
 
         UserResponse createdUser = this.createUserUseCase.execute(testUser);

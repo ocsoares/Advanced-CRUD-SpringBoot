@@ -1,7 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.application.usecases.user;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
-import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByIdException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 import com.ocsoares.advancedcrudspringboot.utils.TestUtils;
@@ -42,7 +41,7 @@ class DeleteUserUseCaseTest {
     @Test
     @DisplayName("It should be possible to delete a user")
     void execute() throws InvalidUserByIdException {
-        var testUserDomain = new UserDomainEntity(testUser.getName(), testUser.getEmail(), testUser.getPassword());
+        var testUserDomain = TestUtils.toDomain(testUser);
         when(this.userRepositoryGateway.findUserById(testUser.getId())).thenReturn(Optional.of(testUserDomain));
 
         Void deletedUser = this.deleteUserUseCase.execute(testUser.getId());

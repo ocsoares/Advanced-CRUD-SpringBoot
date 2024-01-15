@@ -38,8 +38,7 @@ class FindAllUsersUseCaseTest {
         List<UserDomainEntity> testUserList = List.of(testUser, testUser, testUser);
         when(this.userRepositoryGateway.findAllUsers()).thenReturn(testUserList);
 
-        List<UserResponse> testUserListResponse = testUserList.stream()
-                .map(user -> new UserResponse(user.name(), user.email())).toList();
+        List<UserResponse> testUserListResponse = TestUtils.toResponseList(testUserList);
         when(this.userUseCaseMapper.toResponseList(testUserList)).thenReturn(testUserListResponse);
 
         List<UserResponse> allUsersFound = this.findAllUsersUseCase.execute();
@@ -54,8 +53,7 @@ class FindAllUsersUseCaseTest {
         List<UserDomainEntity> testUserList = List.of();
         when(this.userRepositoryGateway.findAllUsers()).thenReturn(testUserList);
 
-        List<UserResponse> testUserListResponse = testUserList.stream()
-                .map(user -> new UserResponse(user.name(), user.email())).toList();
+        List<UserResponse> testUserListResponse = TestUtils.toResponseList(testUserList);
         when(this.userUseCaseMapper.toResponseList(testUserList)).thenReturn(testUserListResponse);
 
         List<UserResponse> allUsersFound = this.findAllUsersUseCase.execute();
