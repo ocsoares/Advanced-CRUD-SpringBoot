@@ -49,7 +49,7 @@ class FindUserUseCaseTest {
         Assertions.assertEquals(InvalidUserByIdException.EXCEPTION_MESSAGE, useCaseException.getMessage());
     }
 
-    // MUDAR o Exception AQUI e na Classe de UseCase !!!!
+    // MUDAR o Exception AQUI e na Classe de UseCase !!
     // OBS: NAO USAR "Exception", usar a CUSTOM !!
     // -------------------------------------------------------------------
     // ADICIONAR os Métodos "toDomain" e "toResponse" do "TestUtils" para os Outros TESTES !!!!

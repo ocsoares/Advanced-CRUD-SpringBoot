@@ -4,6 +4,7 @@ import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserRes
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public class TestUtils {
@@ -26,5 +27,9 @@ public class TestUtils {
 
     public static UserResponse toResponse(UserDomainEntity userDomainEntity) {
         return new UserResponse(userDomainEntity.name(), userDomainEntity.email());
+    }
+
+    public static List<UserResponse> toResponseList(List<UserDomainEntity> userDomainEntityList) {
+        return userDomainEntityList.stream().map(TestUtils::toResponse).toList();
     }
 }
