@@ -58,8 +58,6 @@ class CreateUserUseCaseTest {
     @Test
     @DisplayName("It should be possible to create a user")
     void execute() throws UserAlreadyExistsByEmailException {
-        when(this.userRepositoryGateway.findUserByEmail(testUser.email())).thenReturn(Optional.empty());
-
         String hashedPassword = String.valueOf(Math.random());
         when(this.passwordHasherGateway.hash(testUser.password())).thenReturn(hashedPassword);
 
