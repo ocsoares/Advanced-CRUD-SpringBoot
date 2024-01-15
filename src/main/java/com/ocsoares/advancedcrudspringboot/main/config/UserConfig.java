@@ -3,9 +3,10 @@ package com.ocsoares.advancedcrudspringboot.main.config;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.IAuthServiceGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
+import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCaseMapper;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.*;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.LoginUserController;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappers.UserControllerMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.gateways.user.jpa.JpaUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.infrastructure.mappers.UserPersistenceEntityMapper;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.repository.jpa.JpaUserRepository;
@@ -18,9 +19,10 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfig {
     @Bean
     public CreateUserUseCase createUserUseCase(
-            IUserRepositoryGateway userRepositoryGateway, PasswordHasherGateway passwordHasherGateway
+            IUserRepositoryGateway userRepositoryGateway, PasswordHasherGateway passwordHasherGateway,
+            UserUseCaseMapper userUseCaseMapper
     ) {
-        return new CreateUserUseCase(userRepositoryGateway, passwordHasherGateway);
+        return new CreateUserUseCase(userRepositoryGateway, passwordHasherGateway, userUseCaseMapper);
     }
 
     @Bean
@@ -60,6 +62,11 @@ public class UserConfig {
     @Bean
     public UserPersistenceEntityMapper userPersistenceEntityMapper() {
         return new UserPersistenceEntityMapper();
+    }
+
+    @Bean
+    public UserUseCaseMapper userUseCaseMapper() {
+        return new UserUseCaseMapper();
     }
 
     @Bean

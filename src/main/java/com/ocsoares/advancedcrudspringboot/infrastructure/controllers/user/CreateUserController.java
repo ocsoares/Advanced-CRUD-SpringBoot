@@ -1,12 +1,12 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user;
 
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.CreateUserUseCase;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.UserDTO;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
+import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappers.UserControllerMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,10 +32,6 @@ public class CreateUserController implements IControllerWithArgument<UserRespons
         // DOMÍNIO!!!
         UserDomainEntity createUserDomain = this.userControllerMapper.toDomain(userDTO);
 
-        UserDomainEntity createdUser = this.createUserUseCase.execute(createUserDomain);
-
-        // O "createdUser" é um "UserDomainEntity", então PRECISA CONVERTER ele para o Retorno do Método,
-        // que é "CreateUserResponse" !!!
-        return this.userControllerMapper.toResponse(createdUser);
+        return this.createUserUseCase.execute(createUserDomain);
     }
 }

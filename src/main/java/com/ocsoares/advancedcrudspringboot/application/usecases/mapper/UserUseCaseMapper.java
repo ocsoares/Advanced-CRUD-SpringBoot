@@ -1,12 +1,12 @@
-package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper;
+package com.ocsoares.advancedcrudspringboot.application.usecases.mapper;
 
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.UserDTO;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
 
 import java.util.List;
 
-public class UserControllerMapper {
+public class UserUseCaseMapper {
     public UserDomainEntity toDomain(UserDTO userDTO) {
         return new UserDomainEntity(userDTO.name(), userDTO.email(), userDTO.password());
     }

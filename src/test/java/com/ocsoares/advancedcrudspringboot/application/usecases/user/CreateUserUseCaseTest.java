@@ -2,6 +2,8 @@ package com.ocsoares.advancedcrudspringboot.application.usecases.user;
 
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
+import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCaseMapper;
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 import org.junit.jupiter.api.Assertions;
@@ -25,11 +27,11 @@ class CreateUserUseCaseTest {
     @Mock
     private PasswordHasherGateway passwordHasherGateway;
 
+    @Mock
+    private UserUseCaseMapper userUseCaseMapper;
+
     @InjectMocks
     private CreateUserUseCase createUserUseCase;
-
-//    @Autowired // TENTAR SEM isso !!!
-//    private UserControllerMapper userControllerMapper;
 
     private UserDomainEntity testUser;
 
@@ -64,11 +66,15 @@ class CreateUserUseCaseTest {
         var userWithHashedPassword = new UserDomainEntity(testUser.name(), testUser.email(), hashedPassword);
         when(this.userRepositoryGateway.createUser(userWithHashedPassword)).thenReturn(userWithHashedPassword);
 
-        UserDomainEntity createdUser = this.createUserUseCase.execute(testUser);
+        var userResponse = new UserResponse(testUser.name(), testUser.email());
+        when(this.userUseCaseMapper.toResponse(userWithHashedPassword)).thenReturn(userResponse);
+
+        UserResponse createdUser = this.createUserUseCase.execute(testUser);
 
         verify(this.userRepositoryGateway, times(1)).findUserByEmail(testUser.email());
         verify(this.passwordHasherGateway, times(1)).hash(testUser.password());
         verify(this.userRepositoryGateway, times(1)).createUser(userWithHashedPassword);
-        Assertions.assertEquals(createdUser, userWithHashedPassword);
+        verify(this.userUseCaseMapper, times(1)).toResponse(userWithHashedPassword);
+        Assertions.assertEquals(createdUser, userResponse);
     }
 }

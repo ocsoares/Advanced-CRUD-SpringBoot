@@ -1,10 +1,10 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user;
 
+import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCaseMapper;
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindAllUsersUseCase;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithoutArgument;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FindAllUsersController implements IControllerWithoutArgument<List<UserResponse>> {
     private final FindAllUsersUseCase findAllUsersUseCase;
-    private final UserControllerMapper userControllerMapper;
+    private final UserUseCaseMapper userUseCaseMapper;
 
     @Override
     @GetMapping("user")
@@ -25,6 +25,6 @@ public class FindAllUsersController implements IControllerWithoutArgument<List<U
     public List<UserResponse> handle() {
         List<UserDomainEntity> allUsersFound = this.findAllUsersUseCase.execute();
 
-        return this.userControllerMapper.toResponseList(allUsersFound);
+        return this.userUseCaseMapper.toResponseList(allUsersFound);
     }
 }

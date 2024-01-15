@@ -1,10 +1,10 @@
 package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user;
 
+import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCaseMapper;
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindUserUseCase;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mapper.UserControllerMapper;
-import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FindUserController implements IControllerWithArgument<UserResponse, UUID, Exception> {
     private final FindUserUseCase findUserUseCase;
-    private final UserControllerMapper userControllerMapper;
+    private final UserUseCaseMapper userUseCaseMapper;
 
     @GetMapping("user/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -26,6 +26,6 @@ public class FindUserController implements IControllerWithArgument<UserResponse,
     public UserResponse handle(@PathVariable(value = "id") UUID id) throws Exception {
         UserDomainEntity foundUser = this.findUserUseCase.execute(id);
 
-        return this.userControllerMapper.toResponse(foundUser);
+        return this.userUseCaseMapper.toResponse(foundUser);
     }
 }
