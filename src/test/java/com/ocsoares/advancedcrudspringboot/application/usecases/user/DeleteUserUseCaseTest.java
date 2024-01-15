@@ -4,6 +4,7 @@ import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserReposi
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByIdException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
+import com.ocsoares.advancedcrudspringboot.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,25 +14,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
 class DeleteUserUseCaseTest {
+    private final UserPersistenceEntity testUser = TestUtils.createUserWithId();
     @Mock
     private IUserRepositoryGateway userRepositoryGateway;
-
     @InjectMocks
     private DeleteUserUseCase deleteUserUseCase;
-
-    private UserPersistenceEntity testUser;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        testUser = new UserPersistenceEntity("Bernado", "bernado@gmail.com", "bernadinho123");
-        testUser.setId(UUID.randomUUID());
     }
 
     @Test

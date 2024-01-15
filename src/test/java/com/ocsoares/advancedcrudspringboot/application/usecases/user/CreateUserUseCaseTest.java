@@ -6,6 +6,7 @@ import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCa
 import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
+import com.ocsoares.advancedcrudspringboot.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,8 @@ import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 class CreateUserUseCaseTest {
+    private final UserDomainEntity testUser = TestUtils.createUser();
+
     @Mock
     private IUserRepositoryGateway userRepositoryGateway;
 
@@ -33,13 +36,9 @@ class CreateUserUseCaseTest {
     @InjectMocks
     private CreateUserUseCase createUserUseCase;
 
-    private UserDomainEntity testUser;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        testUser = new UserDomainEntity("Bernado", "bernado@gmail.com", "bernadinho123");
     }
 
     @Test
