@@ -20,7 +20,7 @@ public class FindUserUseCase implements IUseCaseWithArgument<UserResponse, UUID,
     }
 
     @Override
-    public UserResponse execute(UUID id) throws Exception {
+    public UserResponse execute(UUID id) throws InvalidUserByIdException {
         Optional<UserDomainEntity> userFoundById = this.userRepositoryGateway.findUserById(id);
 
         if (userFoundById.isEmpty()) {

@@ -49,13 +49,9 @@ class FindUserUseCaseTest {
         Assertions.assertEquals(InvalidUserByIdException.EXCEPTION_MESSAGE, useCaseException.getMessage());
     }
 
-    // MUDAR o Exception AQUI e na Classe de UseCase !!
-    // OBS: NAO USAR "Exception", usar a CUSTOM !!
-    // -------------------------------------------------------------------
-    // ADICIONAR os Métodos "toDomain" e "toResponse" do "TestUtils" para os Outros TESTES !!!!
     @Test
     @DisplayName("It should be possible to find a user")
-    void execute() throws Exception {
+    void execute() throws InvalidUserByIdException {
         UserDomainEntity testUserDomain = TestUtils.toDomain(testUser);
         when(this.userRepositoryGateway.findUserById(testUser.getId())).thenReturn(Optional.of(testUserDomain));
 
