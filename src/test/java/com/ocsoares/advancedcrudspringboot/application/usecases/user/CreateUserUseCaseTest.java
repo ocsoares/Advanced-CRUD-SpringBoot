@@ -45,7 +45,7 @@ class CreateUserUseCaseTest {
     @Test
     @DisplayName("It should not be possible to create a user if it already exists by email")
         // RECOMENDAÇÃO de Nome para os Testes = Método + Condição desejada + CAUSA da Condição
-    void execute_Fail_WhenUserAlreadyExistsByEmail() throws UserAlreadyExistsByEmailException {
+    void execute_Fail_WhenUserAlreadyExistsByEmail() {
         when(this.userRepositoryGateway.findUserByEmail(testUser.email())).thenReturn(Optional.of(testUser));
 
         UserAlreadyExistsByEmailException useCaseException = Assertions.assertThrows(
