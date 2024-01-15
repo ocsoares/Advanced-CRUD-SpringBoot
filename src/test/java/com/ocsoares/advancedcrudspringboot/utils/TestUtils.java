@@ -1,5 +1,6 @@
 package com.ocsoares.advancedcrudspringboot.utils;
 
+import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 
@@ -15,5 +16,15 @@ public class TestUtils {
         testUser.setId(UUID.randomUUID());
 
         return testUser;
+    }
+
+    public static UserDomainEntity toDomain(UserPersistenceEntity userPersistenceEntity) {
+        return new UserDomainEntity(userPersistenceEntity.getName(), userPersistenceEntity.getEmail(),
+                userPersistenceEntity.getPassword()
+        );
+    }
+
+    public static UserResponse toResponse(UserDomainEntity userDomainEntity) {
+        return new UserResponse(userDomainEntity.name(), userDomainEntity.email());
     }
 }
