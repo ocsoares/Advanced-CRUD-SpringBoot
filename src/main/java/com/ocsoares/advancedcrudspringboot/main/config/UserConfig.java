@@ -26,13 +26,17 @@ public class UserConfig {
     }
 
     @Bean
-    public FindAllUsersUseCase findAllUsersUseCase(IUserRepositoryGateway userRepositoryGateway) {
-        return new FindAllUsersUseCase(userRepositoryGateway);
+    public FindAllUsersUseCase findAllUsersUseCase(
+            IUserRepositoryGateway userRepositoryGateway, UserUseCaseMapper userUseCaseMapper
+    ) {
+        return new FindAllUsersUseCase(userRepositoryGateway, userUseCaseMapper);
     }
 
     @Bean
-    public FindUserUseCase findUserUseCase(IUserRepositoryGateway userRepositoryGateway) {
-        return new FindUserUseCase(userRepositoryGateway);
+    public FindUserUseCase findUserUseCase(
+            IUserRepositoryGateway userRepositoryGateway, UserUseCaseMapper userUseCaseMapper
+    ) {
+        return new FindUserUseCase(userRepositoryGateway, userUseCaseMapper);
     }
 
     @Bean

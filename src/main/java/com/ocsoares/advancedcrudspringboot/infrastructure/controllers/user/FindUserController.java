@@ -3,7 +3,6 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user;
 import com.ocsoares.advancedcrudspringboot.application.usecases.mapper.UserUseCaseMapper;
 import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.FindUserUseCase;
-import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,6 @@ public class FindUserController implements IControllerWithArgument<UserResponse,
     @ResponseStatus(HttpStatus.OK)
     @Override
     public UserResponse handle(@PathVariable(value = "id") UUID id) throws Exception {
-        UserDomainEntity foundUser = this.findUserUseCase.execute(id);
-
-        return this.userUseCaseMapper.toResponse(foundUser);
+        return this.findUserUseCase.execute(id);
     }
 }
