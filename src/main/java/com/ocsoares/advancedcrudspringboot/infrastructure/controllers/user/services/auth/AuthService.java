@@ -57,7 +57,7 @@ public class AuthService implements UserDetailsService, IAuthServiceGateway {
 
         // Esse trecho NÃO vai ser Executado se o Login for INVÁLIDO !!!!
         String userId = this.userRepositoryGateway.getUserIdByEmail(email)
-                                                  .orElseThrow(InvalidUserByEmailException::new);
+                .orElseThrow(InvalidUserByEmailException::new);
 
         return this.tokenServiceGateway.generateToken(userId, domainAuthenticatedUser);
     }
