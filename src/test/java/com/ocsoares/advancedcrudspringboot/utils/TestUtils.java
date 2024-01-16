@@ -25,6 +25,12 @@ public class TestUtils {
         );
     }
 
+    public static UserPersistenceEntity toPersistence(UserDomainEntity userDomainEntity) {
+        return new UserPersistenceEntity(userDomainEntity.name(), userDomainEntity.email(),
+                userDomainEntity.password()
+        );
+    }
+
     public static UserResponse toResponse(UserDomainEntity userDomainEntity) {
         return new UserResponse(userDomainEntity.name(), userDomainEntity.email());
     }
