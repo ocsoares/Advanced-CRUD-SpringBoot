@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // Para NÃO dar CONFLITO de Portas
-@AutoConfigureMockMvc(addFilters = false) // "addFilters = false" = vai DESABILITAR Filtros como Autenticação, por ex.
+@AutoConfigureMockMvc() // "addFilters = false" dentro dos () = vai DESABILITAR Filtros como Autenticação, por ex.
 @ActiveProfiles("test")
 class CreateUserControllerTest {
     private static final String URI = "/auth/register";
