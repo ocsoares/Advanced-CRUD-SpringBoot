@@ -9,5 +9,5 @@ import java.time.Instant;
 public interface ITokenServiceGateway {
     String generateToken(String id, UserDomainEntity userDomainEntity) throws ErrorCreatingJWTException;
     String validateToken(String token) throws ErrorJWTVerificationException;
-    Instant getExpirationDate(Integer plusHours, String zoneOffSetId);
+    Instant getExpirationDate();
 }

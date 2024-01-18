@@ -2,8 +2,12 @@ package com.ocsoares.advancedcrudspringboot.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenServiceGateway;
+import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorCreatingJWTException;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByEmailException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
 
 import java.util.List;
@@ -54,5 +58,26 @@ public class TestUtils {
         var createdUserResponse = new UserResponse(userDTO.name(), userDTO.email());
 
         return TestUtils.objectMapper.writeValueAsString(createdUserResponse);
+    }
+
+    public static String generateToken(
+            IUserRepositoryGateway userRepositoryGateway, ITokenServiceGateway tokenServiceGateway
+    ) throws ErrorCreatingJWTException, InvalidUserByEmailException {
+        var userDTO = new UserDomainEntity("Wesley", "wesley@gmail.com", "wesley123");
+
+        UserDomainEntity createdUser = userRepositoryGateway.createUser(userDTO);
+        String userId = userRepositoryGateway.getUserIdByEmail(createdUser.email())
+                .orElseThrow(InvalidUserByEmailException::new);
+
+        return tokenServiceGateway.generateToken(userId, createdUser);
+    }
+
+    public static String createUserAndGetId(
+            IUserRepositoryGateway userRepositoryGateway, UserDomainEntity userDTO
+    ) throws InvalidUserByEmailException {
+        UserDomainEntity createdUser = userRepositoryGateway.createUser(userDTO);
+
+        return userRepositoryGateway.getUserIdByEmail(createdUser.email())
+                .orElseThrow(InvalidUserByEmailException::new);
     }
 }

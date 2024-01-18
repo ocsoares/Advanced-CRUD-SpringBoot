@@ -30,10 +30,13 @@ public class JwtService implements ITokenServiceGateway {
         try {
             Algorithm algorithm = Algorithm.HMAC256(JwtService.JWT_SECRET);
 
-            return JWT.create().withIssuer(JwtService.JWT_ISSUER) // Nome do EMISSOR
+            return JWT.create()
+                    .withIssuer(JwtService.JWT_ISSUER) // Nome do EMISSOR
                     .withSubject(userPersistenceEntity.getEmail()) // É o "sub" do JWT, a quem o Token PERTENCE
-                    .withClaim("id", id).withClaim("name", userPersistenceEntity.getName())
-                    .withExpiresAt(getExpirationDate(24, "-03:00")).sign(algorithm); // "-03:00" = Brasil
+                    .withClaim("id", id)
+                    .withClaim("name", userPersistenceEntity.getName())
+                    .withExpiresAt(this.getExpirationDate())
+                    .sign(algorithm);
 
         } catch (JWTCreationException exception) {
             throw new ErrorCreatingJWTException();
@@ -52,7 +55,8 @@ public class JwtService implements ITokenServiceGateway {
     }
 
     @Override
-    public Instant getExpirationDate(Integer plusHours, String zoneOffSetId) {
-        return LocalDateTime.now().plusHours(plusHours).toInstant(ZoneOffset.of(zoneOffSetId));
+    public Instant getExpirationDate() {
+        // "-03:00" = Brasil
+        return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
     }
 }
