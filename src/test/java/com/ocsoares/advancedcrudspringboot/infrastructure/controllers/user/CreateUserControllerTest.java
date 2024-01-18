@@ -9,14 +9,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -61,13 +59,12 @@ class CreateUserControllerTest {
     @Test
     @DisplayName("It should be possible to create a user")
     void handle() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post(CreateUserControllerTest.URI)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.JSONUserDTO)).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
-
-        String requestResponse = mvcResult.getResponse().getContentAsString();
         String expectedUserResponse = TestUtils.expectedUserResponse();
 
-        JSONAssert.assertEquals(expectedUserResponse, requestResponse, true);
+        this.mockMvc.perform(MockMvcRequestBuilders.post(CreateUserControllerTest.URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.JSONUserDTO))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().json(expectedUserResponse));
     }
 }
