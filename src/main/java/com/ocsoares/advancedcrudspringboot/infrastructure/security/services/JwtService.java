@@ -18,7 +18,8 @@ import java.time.ZoneOffset;
 
 @RequiredArgsConstructor
 public class JwtService implements ITokenServiceGateway {
-    private static final String JWT_SECRET = System.getenv("JWT_SECRET");
+    private static final String JWT_SECRET = System.getenv("JWT_SECRET") != null ? System.getenv(
+            "JWT_SECRET") : "TvhTvDZ5ryTrcj5X";
     private static final String JWT_ISSUER = "advanced-crud-spring-boot-auth";
     private final UserPersistenceEntityMapper userPersistenceEntityMapper;
 
@@ -30,9 +31,9 @@ public class JwtService implements ITokenServiceGateway {
             Algorithm algorithm = Algorithm.HMAC256(JwtService.JWT_SECRET);
 
             return JWT.create().withIssuer(JwtService.JWT_ISSUER) // Nome do EMISSOR
-                      .withSubject(userPersistenceEntity.getEmail()) // É o "sub" do JWT, a quem o Token PERTENCE
-                      .withClaim("id", id).withClaim("name", userPersistenceEntity.getName())
-                      .withExpiresAt(getExpirationDate(24, "-03:00")).sign(algorithm); // "-03:00" = Brasil
+                    .withSubject(userPersistenceEntity.getEmail()) // É o "sub" do JWT, a quem o Token PERTENCE
+                    .withClaim("id", id).withClaim("name", userPersistenceEntity.getName())
+                    .withExpiresAt(getExpirationDate(24, "-03:00")).sign(algorithm); // "-03:00" = Brasil
 
         } catch (JWTCreationException exception) {
             throw new ErrorCreatingJWTException();

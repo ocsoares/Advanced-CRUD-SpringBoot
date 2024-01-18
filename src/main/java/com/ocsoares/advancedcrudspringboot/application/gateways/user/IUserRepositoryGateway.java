@@ -16,4 +16,5 @@ public interface IUserRepositoryGateway {
     Void deleteUserById(UUID id);
     Void updateUserById(UUID id, UserDomainEntity userDomainEntity);
     Optional<String> getUserIdByEmail(String email);
+    Void deleteAll();
 }

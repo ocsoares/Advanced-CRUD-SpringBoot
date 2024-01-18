@@ -102,4 +102,11 @@ public class JpaUserRepositoryGateway implements IUserRepositoryGateway {
 
         return Optional.empty();
     }
+
+    @Override
+    public Void deleteAll() {
+        this.jpaUserRepository.deleteAll();
+
+        return null;
+    }
 }

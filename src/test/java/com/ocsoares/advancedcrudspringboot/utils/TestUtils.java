@@ -1,5 +1,7 @@
 package com.ocsoares.advancedcrudspringboot.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.persistence.entity.UserPersistenceEntity;
@@ -8,8 +10,16 @@ import java.util.List;
 import java.util.UUID;
 
 public class TestUtils {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     public static UserDomainEntity createUser() {
         return new UserDomainEntity("Bernado", "bernado@gmail.com", "bernadinho123");
+    }
+
+    public static String JSONUserDTO() throws JsonProcessingException {
+        UserDomainEntity user = TestUtils.createUser();
+
+        return TestUtils.objectMapper.writeValueAsString(user);
     }
 
     public static UserPersistenceEntity createUserWithId() {
@@ -37,5 +47,12 @@ public class TestUtils {
 
     public static List<UserResponse> toResponseList(List<UserDomainEntity> userDomainEntityList) {
         return userDomainEntityList.stream().map(TestUtils::toResponse).toList();
+    }
+
+    public static String expectedUserResponse() throws JsonProcessingException {
+        UserDomainEntity userDTO = TestUtils.createUser();
+        var createdUserResponse = new UserResponse(userDTO.name(), userDTO.email());
+
+        return TestUtils.objectMapper.writeValueAsString(createdUserResponse);
     }
 }
