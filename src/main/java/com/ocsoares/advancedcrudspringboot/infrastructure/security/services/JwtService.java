@@ -18,6 +18,8 @@ import java.time.ZoneOffset;
 
 @RequiredArgsConstructor
 public class JwtService implements ITokenServiceGateway {
+    // Usei a Secret "TvhTvDZ5ryTrcj5X" para Funcionar nos TESTES, porque nos Testes o "JWT_SECRET" NÃO tem como
+    // ser Setado (retorna NULL), então usando assim Permite FUNCIONAR nos Testes!!!
     private static final String JWT_SECRET = System.getenv("JWT_SECRET") != null ? System.getenv(
             "JWT_SECRET") : "TvhTvDZ5ryTrcj5X";
     private static final String JWT_ISSUER = "advanced-crud-spring-boot-auth";
