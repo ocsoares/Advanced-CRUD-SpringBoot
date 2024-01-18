@@ -72,6 +72,16 @@ public class TestUtils {
         return tokenServiceGateway.generateToken(userId, createdUser);
     }
 
+    public static String generateTokenWithOwnUser(
+            IUserRepositoryGateway userRepositoryGateway, ITokenServiceGateway tokenServiceGateway,
+            UserDomainEntity createdUser
+    ) throws InvalidUserByEmailException, ErrorCreatingJWTException {
+        String userId = userRepositoryGateway.getUserIdByEmail(createdUser.email())
+                .orElseThrow(InvalidUserByEmailException::new);
+
+        return tokenServiceGateway.generateToken(userId, createdUser);
+    }
+
     public static String createUserAndGetId(
             IUserRepositoryGateway userRepositoryGateway, UserDomainEntity userDTO
     ) throws InvalidUserByEmailException {
