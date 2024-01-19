@@ -7,6 +7,8 @@ import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExi
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.UserDTO;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappers.UserControllerMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,10 @@ public class CreateUserController implements IControllerWithArgument<UserRespons
     private final UserControllerMapper userControllerMapper;
 
     @Override
+    @Operation(summary = "Create user", tags = "Authentication")
+    @ApiResponse(responseCode = "201")
+    @ApiResponse(responseCode = "409")
+    @ApiResponse(responseCode = "500")
     @PostMapping("auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
