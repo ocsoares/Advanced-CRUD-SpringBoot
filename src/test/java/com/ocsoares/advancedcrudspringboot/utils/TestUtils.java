@@ -20,6 +20,12 @@ public class TestUtils {
         return new UserDomainEntity("Bernado", "bernado@gmail.com", "bernadinho123");
     }
 
+    public static UserDomainEntity createUserDatabase(IUserRepositoryGateway userRepositoryGateway) {
+        UserDomainEntity userDTO = TestUtils.createUser();
+
+        return userRepositoryGateway.createUser(userDTO);
+    }
+
     public static String JSONUserDTO() throws JsonProcessingException {
         UserDomainEntity user = TestUtils.createUser();
 
