@@ -5,8 +5,6 @@ import com.ocsoares.advancedcrudspringboot.application.gateways.security.ITokenS
 import com.ocsoares.advancedcrudspringboot.application.gateways.security.PasswordHasherGateway;
 import com.ocsoares.advancedcrudspringboot.application.gateways.user.IUserRepositoryGateway;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
-import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorCreatingJWTException;
-import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByEmailException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.LoginDTO;
 import com.ocsoares.advancedcrudspringboot.utils.TestUtils;
 import org.json.JSONObject;
@@ -44,7 +42,7 @@ class LoginUserControllerTest {
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    void setUp() throws ErrorCreatingJWTException, InvalidUserByEmailException {
+    void setUp() {
         this.createdUserDatabase = TestUtils.createUserDatabase(this.userRepositoryGateway);
     }
 
