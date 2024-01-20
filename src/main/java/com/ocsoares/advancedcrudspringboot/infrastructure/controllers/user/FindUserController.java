@@ -25,7 +25,7 @@ public class FindUserController implements IControllerWithArgument<UserResponse,
     @Operation(summary = "Find a user", tags = "User")
     @ApiResponse(responseCode = "200")
     @ApiResponse(responseCode = "400")
-    @ApiResponse(responseCode = "403", content = @Content) // USAR apenas o "@Content" RETIRA o Schema PADRÃO Definido!!
+    @ApiResponse(responseCode = "403", content = @Content) // USAR apenas o "@Content" RETIRA o Schema PADRÃO Definido!
     @ApiResponse(responseCode = "500")
     @GetMapping("user/{id}")
     @ResponseStatus(HttpStatus.OK)
