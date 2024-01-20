@@ -5,6 +5,8 @@ import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithTwoArguments;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.UserDTO;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappers.UserControllerMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,11 @@ public class UpdateUserController implements IControllerWithTwoArguments<Void, U
     private final UpdateUserUseCase updateUserUseCase;
     private final UserControllerMapper userControllerMapper;
 
+    @Operation(summary = "Update a user", tags = "User")
+    @ApiResponse(responseCode = "204")
+    @ApiResponse(responseCode = "400")
+    @ApiResponse(responseCode = "403")
+    @ApiResponse(responseCode = "500")
     @PatchMapping("user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
