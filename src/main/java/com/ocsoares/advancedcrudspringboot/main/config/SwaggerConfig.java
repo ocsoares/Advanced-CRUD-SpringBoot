@@ -24,6 +24,7 @@ public class SwaggerConfig {
     }
 
     // Padronizando as Responses para NÃO ter que ficar REPETINDO no Código de cada Documentação de Rota!!!
+    // OBS: Mas isso SETA EM TODAS as Rotas Documentadas!!!!
     @Bean
     public OpenApiCustomizer openApiCustomizer() {
         ResolvedSchema errorResponseSchema = ModelConverters.getInstance()
@@ -36,7 +37,6 @@ public class SwaggerConfig {
                 .forEach(pathItem -> pathItem.readOperations()
                         .forEach(operation -> operation.getResponses()
                                 .addApiResponse("400", new ApiResponse().description("Bad Request"))
-                                .addApiResponse("409", new ApiResponse().description("Conflict").content(content))
                                 .addApiResponse("500",
                                         new ApiResponse().description("Internal Server Error").content(content)
                                 )));

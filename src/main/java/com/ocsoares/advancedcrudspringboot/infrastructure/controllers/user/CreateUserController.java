@@ -3,11 +3,14 @@ package com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user;
 import com.ocsoares.advancedcrudspringboot.application.usecases.response.UserResponse;
 import com.ocsoares.advancedcrudspringboot.application.usecases.user.CreateUserUseCase;
 import com.ocsoares.advancedcrudspringboot.domain.entity.UserDomainEntity;
+import com.ocsoares.advancedcrudspringboot.domain.exceptions.response.MessageAndStatusCodeResponse;
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.interfaces.IControllerWithArgument;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.dtos.UserDTO;
 import com.ocsoares.advancedcrudspringboot.infrastructure.controllers.user.mappers.UserControllerMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +30,7 @@ public class CreateUserController implements IControllerWithArgument<UserRespons
     @Override
     @Operation(summary = "Create user", tags = "Authentication")
     @ApiResponse(responseCode = "201")
-    @ApiResponse(responseCode = "409")
+    @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = MessageAndStatusCodeResponse.class)))
     @ApiResponse(responseCode = "500")
     @PostMapping("auth/register")
     @ResponseStatus(HttpStatus.CREATED)
