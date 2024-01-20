@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class CreateUserController implements IControllerWithArgument<UserRespons
     @ApiResponse(responseCode = "201")
     @ApiResponse(responseCode = "409", content = @Content(schema = @Schema(implementation = MessageAndStatusCodeResponse.class)))
     @ApiResponse(responseCode = "500")
+    @SecurityRequirement(name = "none")
     @PostMapping("auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional

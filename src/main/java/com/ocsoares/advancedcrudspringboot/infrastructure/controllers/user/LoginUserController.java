@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class LoginUserController implements IControllerWithArgument<TokenRespons
     @ApiResponse(responseCode = "200")
     @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = MessageAndStatusCodeResponse.class)))
     @ApiResponse(responseCode = "500")
+    @SecurityRequirement(name = "none")
     @PostMapping("auth/login")
     @Override
     public TokenResponse handle(@RequestBody @Valid LoginDTO loginDTO) throws Exception {
