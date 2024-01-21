@@ -62,11 +62,12 @@ public class UserExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(bodyResponse);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value());
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
-    }
+    // DESCOMENTAR...
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
+//        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
+//                "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value());
+//
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
+//    }
 }
