@@ -6,6 +6,7 @@ import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.InvalidUserByI
 import com.ocsoares.advancedcrudspringboot.domain.exceptions.user.UserAlreadyExistsByEmailException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -49,6 +50,15 @@ public class UserExceptionHandler {
         var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyResponse);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleUsernameNotFoundException(
+            UsernameNotFoundException exception
+    ) {
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
     }
 
     @ExceptionHandler(UnsupportedOperationException.class)
