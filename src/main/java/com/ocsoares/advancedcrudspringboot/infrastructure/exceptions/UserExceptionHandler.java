@@ -63,11 +63,11 @@ public class UserExceptionHandler {
     }
 
     // DESCOMENTAR...
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
-//        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-//                "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value());
-//
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
+        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
+                "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
+    }
 }
