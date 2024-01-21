@@ -6,6 +6,7 @@ import com.ocsoares.advancedcrudspringboot.domain.exceptions.security.ErrorJWTVe
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,6 +34,16 @@ public class SecurityExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
+    }
+
+    // ADICIONEI ISSO.....
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleUsernameNotFoundException(
+            UsernameNotFoundException exception
+    ) {
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
