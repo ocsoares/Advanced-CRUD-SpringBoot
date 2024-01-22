@@ -36,12 +36,10 @@ public class SecurityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
     }
 
-    // ADICIONEI ISSO.....
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<MessageAndStatusCodeResponse> handleUsernameNotFoundException(
             UsernameNotFoundException exception
     ) {
-        System.out.println("ERRO de EXCEPTION no UsernameNotFoundException !!!!");
         var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
@@ -51,7 +49,6 @@ public class SecurityExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleBadCredentialsException(
             BadCredentialsException exception
     ) {
-        System.out.println("ERRO de EXCEPTION no BadCredentialsException !!!!!!!");
         var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);

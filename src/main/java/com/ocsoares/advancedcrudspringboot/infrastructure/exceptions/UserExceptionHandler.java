@@ -66,6 +66,15 @@ public class UserExceptionHandler {
     public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException(Exception exception) {
         System.out.println("Generic Exception MESSAGE: " + exception.getMessage());
 
+        // Usei isso porque em DEPLOY NÃO trata esse Erro e retorna o Erro Genérico HTTP 500!!!
+        if (exception.getMessage().equals("Usuário inexistente ou senha inválida")) {
+            var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(),
+                    HttpStatus.UNAUTHORIZED.value()
+            );
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
+        }
+
         var bodyResponse = new MessageAndStatusCodeResponse("An unexpected server error occurred",
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
         );
