@@ -63,9 +63,12 @@ public class UserExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException() {
-        MessageAndStatusCodeResponse bodyResponse = new MessageAndStatusCodeResponse(
-                "An unexpected server error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value());
+    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException(Exception exception) {
+        System.out.println("Generic Exception MESSAGE: " + exception.getMessage());
+
+        var bodyResponse = new MessageAndStatusCodeResponse("An unexpected server error occurred",
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(bodyResponse);
     }
