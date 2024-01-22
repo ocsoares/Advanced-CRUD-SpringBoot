@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -38,39 +37,23 @@ public class SecurityExceptionHandler {
     }
 
     // ADICIONEI ISSO.....
-//    @ExceptionHandler(UsernameNotFoundException.class)
-//    public ResponseEntity<MessageAndStatusCodeResponse> handleUsernameNotFoundException(
-//            UsernameNotFoundException exception
-//    ) {
-//        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
-//
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
-//    }
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleUsernameNotFoundException(
+            UsernameNotFoundException exception
+    ) {
+        System.out.println("ERRO de EXCEPTION no UsernameNotFoundException !!!!");
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
 
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ResponseEntity<MessageAndStatusCodeResponse> handleBadCredentialsException(
-//            BadCredentialsException exception
-//    ) {
-//        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
-//
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
-//    }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
+    }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<MessageAndStatusCodeResponse> handleGeneralException(Exception exception) {
-        if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
-            // Tratamento específico para erros do Spring Security
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new MessageAndStatusCodeResponse("Usuário inexistente ou senha inválida",
-                            HttpStatus.UNAUTHORIZED.value()
-                    ));
-        } else {
-            // Tratamento genérico para outras exceções
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageAndStatusCodeResponse("An unexpected server error occurred",
-                            HttpStatus.INTERNAL_SERVER_ERROR.value()
-                    ));
-        }
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<MessageAndStatusCodeResponse> handleBadCredentialsException(
+            BadCredentialsException exception
+    ) {
+        System.out.println("ERRO de EXCEPTION no BadCredentialsException !!!!!!!");
+        var bodyResponse = new MessageAndStatusCodeResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED.value());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(bodyResponse);
     }
 }
